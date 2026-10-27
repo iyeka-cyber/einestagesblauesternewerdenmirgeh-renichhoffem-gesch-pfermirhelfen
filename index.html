@@ -42,7 +42,7 @@
     #durum {
       margin-top: 15px;
       font-size: 14px;
-      color: #888;
+      color: #aaa;
     }
   </style>
 </head>
@@ -52,26 +52,25 @@
   <button class="play-btn" onclick="sesCal()">Sesi Çal 🎵</button>
   <div id="durum"></div>
 
-  <!-- Catbox MP3 Linki -->
-  <audio id="sesMedyasi" src="https://files.catbox.moe/g8btrd.mp3" preload="auto"></audio>
+  <!-- Doğrudan GitHub depona yüklediğin ses.mp3 -->
+  <audio id="sesMedyasi" src="ses.mp3" preload="auto"></audio>
 
   <script>
     function sesCal() {
       const ses = document.getElementById('sesMedyasi');
       const durum = document.getElementById('durum');
       
-      durum.innerText = "Yükleniyor / Çalınıyor...";
-      ses.currentTime = 0;
+      durum.innerText = "Ses yükleniyor...";
+      ses.currentTime = 0; // Her basıldığında başa sarar
 
-      // Tarayıcı oynatma izni sözünü (promise) kontrol et
       const playPromise = ses.play();
 
       if (playPromise !== undefined) {
         playPromise.then(() => {
           durum.innerText = "Ses çalıyor 🔊";
         }).catch(error => {
-          console.error("Hata:", error);
-          durum.innerText = "Hata: Ses çalınamadı. Sayfaya bir kez tıklayıp tekrar deneyin.";
+          console.error("Çalma hatası:", error);
+          durum.innerText = "Hata: Ses oynatılamadı. Lütfen sayfaya bir kez tıklayıp tekrar buton basmayı deneyin.";
         });
       }
     }
