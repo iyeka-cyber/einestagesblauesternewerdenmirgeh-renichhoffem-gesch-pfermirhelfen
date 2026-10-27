@@ -7,12 +7,14 @@
   <style>
     body {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
       background-color: #121212;
       font-family: Arial, sans-serif;
+      color: white;
     }
 
     .play-btn {
@@ -36,12 +38,19 @@
     .play-btn:active {
       transform: scale(0.95);
     }
+
+    #durum {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #888;
+    }
   </style>
 </head>
 <body>
 
   <!-- Buton -->
   <button class="play-btn" onclick="sesCal()">Sesi Çal 🎵</button>
+  <div id="durum"></div>
 
   <!-- Catbox MP3 Linki -->
   <audio id="sesMedyasi" src="https://files.catbox.moe/g8btrd.mp3" preload="auto"></audio>
@@ -49,8 +58,22 @@
   <script>
     function sesCal() {
       const ses = document.getElementById('sesMedyasi');
+      const durum = document.getElementById('durum');
+      
+      durum.innerText = "Yükleniyor / Çalınıyor...";
       ses.currentTime = 0;
-      ses.play();
+
+      // Tarayıcı oynatma izni sözünü (promise) kontrol et
+      const playPromise = ses.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          durum.innerText = "Ses çalıyor 🔊";
+        }).catch(error => {
+          console.error("Hata:", error);
+          durum.innerText = "Hata: Ses çalınamadı. Sayfaya bir kez tıklayıp tekrar deneyin.";
+        });
+      }
     }
   </script>
 
