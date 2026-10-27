@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ses Butonu</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #121212;
+      font-family: Arial, sans-serif;
+    }
+
+    .play-btn {
+      padding: 20px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+      transition: transform 0.1s, background-color 0.2s;
+      user-select: none;
+    }
+
+    .play-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .play-btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Buton -->
+  <button class="play-btn" onclick="sesCal()">Sesi Çal 🎵</button>
+
+  <!-- Catbox MP3 Linki -->
+  <audio id="sesMedyasi" src="https://files.catbox.moe/g8btrd.mp3" preload="auto"></audio>
+
+  <script>
+    function sesCal() {
+      const ses = document.getElementById('sesMedyasi');
+      ses.currentTime = 0;
+      ses.play();
+    }
+  </script>
+
+</body>
+</html>
