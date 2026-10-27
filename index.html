@@ -10,33 +10,40 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       background-color: #121212;
       font-family: Arial, sans-serif;
       color: white;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .play-btn {
-      padding: 20px 40px;
-      font-size: 20px;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px 20px;
+      font-size: 26px;
       font-weight: bold;
       color: #ffffff;
-      background-color: #007bff;
+      background-color: #e50914;
       border: none;
-      border-radius: 50px;
+      border-radius: 20px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
-      transition: transform 0.1s, background-color 0.2s;
+      box-shadow: 0 8px 25px rgba(229, 9, 20, 0.5);
       user-select: none;
     }
 
-    .play-btn:hover {
-      background-color: #0056b3;
+    .play-btn:active {
+      transform: scale(0.96);
     }
 
-    .play-btn:active {
-      transform: scale(0.95);
+    .uyari {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #ffcc00;
+      font-weight: bold;
     }
 
     #durum {
@@ -49,30 +56,26 @@
 <body>
 
   <!-- Buton -->
-  <button class="play-btn" onclick="sesCal()">Sesi Çal 🎵</button>
+  <button class="play-btn" onclick="sesCal()">SESİ ÇAL 🔊</button>
+
+  <div class="uyari">⚠️ Sonuna kadar sesini aç, sonra butona bas!</div>
   <div id="durum"></div>
 
-  <!-- Doğrudan GitHub depona yüklediğin ses.mp3 -->
-  <audio id="sesMedyasi" src="ses.mp3" preload="auto"></audio>
+  <!-- Sadece depodaki ses.mp3 dosyasını bağladık -->
+  <audio id="sesMedyasi" src="ses.mp3" loop></audio>
 
   <script>
     function sesCal() {
       const ses = document.getElementById('sesMedyasi');
       const durum = document.getElementById('durum');
+
+      ses.currentTime = 0;
       
-      durum.innerText = "Ses yükleniyor...";
-      ses.currentTime = 0; // Her basıldığında başa sarar
-
-      const playPromise = ses.play();
-
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          durum.innerText = "Ses çalıyor 🔊";
-        }).catch(error => {
-          console.error("Çalma hatası:", error);
-          durum.innerText = "Hata: Ses oynatılamadı. Lütfen sayfaya bir kez tıklayıp tekrar buton basmayı deneyin.";
-        });
-      }
+      ses.play().then(() => {
+        durum.innerText = "Ses çalıyor 🔁🔊";
+      }).catch(error => {
+        durum.innerText = "Hata: " + error.message;
+      });
     }
   </script>
 
